@@ -465,7 +465,6 @@ $(function () {
     }).on("move_node.jstree",jstree_save);
 
     $("#documentTemplateModal").on("click",".section>a[data-type]",function () {
-        alert("hello world");
         var $this = $(this).attr("data-type");
         var body = $("#template-" + $this).html();
         if (body) {

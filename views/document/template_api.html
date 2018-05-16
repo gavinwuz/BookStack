@@ -1,23 +1,35 @@
-#### 简要描述：
+[TOC]
+
+## 1 版本日志
+
+版本 |  修订日期   |  修订者 |  修订内容
+---  | ---        | ---    | ---
+v0.2 |            | xxxx   |
+v0.1 | 2018-02-28 | 伍张发  |  创建文档
+
+## 2 版本状态
+
+开发中
+
+**完成度**：![5%](http://progressed.io/bar/5)
+
+## 3 API简要描述
 
 - 用户登录接口
 
-#### 接口版本：
 
-|版本号|制定人|制定日期|修订日期|
-|:----    |:---|:----- |-----   |
-|2.1.0 |秦亮  |2017-03-20 |  xxxx-xx-xx |
+### 3.1 路由/请求路径
 
-#### 请求URL:
+- 请求方式:
+  - `POST`：创建操作
+  - `GET`：查询操作
+  - `PUT`：修改操作
+  - `DELETE`：删除操作
 
-- http://xx.com/api/login
+- POST `/api/login`
+- ROUTE `area.playerHandler.entry`
 
-#### 请求方式：
-
-- GET
-- POST
-
-#### 请求头：
+### 3.2 请求头[可选]
 
 |参数名|是否必须|类型|说明|
 |:----    |:---|:----- |-----   |
@@ -25,47 +37,74 @@
 |Content-MD5 |是  |string | 请求内容签名    |
 
 
-#### 请求参数:
+### 3.3 请求参数
 
 |参数名|是否必须|类型|说明|
 |:----    |:---|:----- |-----   |
 |username |是  |string |用户名   |
 |password |是  |string | 密码    |
 
-#### 返回示例:
 
-**正确时返回:**
+### 3.4 请求示例
 
-```
-{
-    "errcode": 0,
-    "data": {
-        "uid": "1",
-        "account": "admin",
-        "nickname": "Minho",
-        "group_level": 0 ,
-        "create_time": "1436864169",
-        "last_login_time": "0",
-    }
-}
-```
+* FROM示例
+	```
+	username=张三&password=123456
+	```
 
-**错误时返回:**
+* JSON示例
+	```
+	{
+		"username":"张三",
+		"password":"123456"
+	}
+	```
 
 
-```
-{
-    "errcode": 500,
-    "errmsg": "invalid appid"
-}
-```
+### 3.5 响应参数
 
-#### 返回参数说明:
+参数名 | 类型 | 描述
+--- | --- | ---
+player    |    object   |  玩家结构
+`--`uid    |    int64    | `成员属性`
+`--`attrs   |             | 附加属性列表
+`--+--`attrId | int64     | 属性Id
+`--+--`attrVal | string    | 属性值
+items     |             | 物品列表
+`+--`itemid   |    int64    | `子列表的成员属性`
+`+--`props     |            | 道具ID列表
+`+--+--`propid  | int64     | 道具ID
 
-|参数名|类型|说明|
-|:-----  |:-----|-----                           |
-|group_level |int   |用户组id，1：超级管理员；2：普通用户  |
 
-#### 备注:
+### 3.6 响应示例
+
+* JSON示例
+
+	```
+	{
+		"code": 0,
+		"msg":"",
+		"data": {
+			"player":{
+				"uid": "1",
+				"attrs":[
+					{"attrId":11,"attrVal":"xxx"},
+					{"attrId":12,"attrVal":"xxx"}
+				]
+			},
+			"items":{
+				"itemid": "1",
+				"props":[
+					{"propid":11},
+					{"propid":12}
+				]
+			}
+		}
+	}
+	```
+
+
+### 3.7 备注
 
 - 更多返回错误代码请看首页的错误代码描述
+
